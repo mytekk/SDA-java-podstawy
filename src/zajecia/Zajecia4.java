@@ -25,10 +25,7 @@ public class Zajecia4 {
         int[] newArray = getArrayFromUser();
 
         System.out.println("Your array:");
-
-        for (int i = 0; i<newArray.length; i++) {
-            System.out.print(newArray[i] + ", ");
-        }
+        displayArray(newArray);
 
         System.out.println("\nAnd now, statistics for you array!");
         statistics(newArray);
@@ -50,6 +47,40 @@ public class Zajecia4 {
         revers(array);
     }
 
+    public static void revers(int[] array) {
+        System.out.print("[");
+        for (int i = array.length - 1; i >= 0; i--) {
+            System.out.print(array[i]);
+            if (i != 0) {
+                System.out.print(", ");
+            }
+
+        }
+        System.out.print("]");
+    }
+
+    public static void displayReversedArray(int[] array) {
+        //***
+    }
+
+   // public static int[] reverseArray(int[] array) {
+        //tworzymy pusta tablice o tej samejdlugosci co pierwotna
+        //przepisujemy elementy
+        //zwracamy nowa tablice
+   // }
+
+    public static void displayArray(int[] array) {
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) {
+                System.out.print(", ");
+            }
+
+        }
+        System.out.print("]");
+    }
+
     public static int[] getArrayFromUser() {
         //tworzymy scanner
         //pytamy usera o ilosc elementow
@@ -67,18 +98,6 @@ public class Zajecia4 {
             array[i] = scanner.nextInt();
         }
         return array;
-    }
-
-    public static void revers(int[] array) {
-        System.out.print("[");
-        for (int i = array.length - 1; i >= 0; i--) {
-            System.out.print(array[i]);
-            if (i != 0) {
-                System.out.print(", ");
-            }
-
-        }
-        System.out.print("]");
     }
 
     public static int minFromArray(int[] array) {
