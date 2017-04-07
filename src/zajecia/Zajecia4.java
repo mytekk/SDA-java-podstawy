@@ -18,9 +18,20 @@ public class Zajecia4 {
 //
 //        displayDate(day, month, year);
 
-        int[] array = {9, 8, 7, 6, 5, 4, 18, 2, 1, 0, -1, -12, -3, -4, -5, -6};
+//        int[] array = {9, 8, 7, 6, 5, 4, 18, 2, 1, 0, -1, -12, -3, -4, -5, -6};
 
-        statistics(array);
+//        statistics(array);
+
+        int[] newArray = getArrayFromUser();
+
+        System.out.println("Your array:");
+
+        for (int i = 0; i<newArray.length; i++) {
+            System.out.print(newArray[i] + ", ");
+        }
+
+        System.out.println("\nAnd now, statistics for you array!");
+        statistics(newArray);
 
     }
 
@@ -39,6 +50,25 @@ public class Zajecia4 {
         revers(array);
     }
 
+    public static int[] getArrayFromUser() {
+        //tworzymy scanner
+        //pytamy usera o ilosc elementow
+        //tworzymy pustatablice
+        //w petlipytamy usera o elementy
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How many elements would you like to have in your array?");
+        int size = scanner.nextInt();
+
+        int[] array = new int[size]; //definicja tablicy o zadanej dlugosci
+
+        for (int i = 0; i<array.length; i++) {
+            System.out.println("Please give the " + i + " element: ");
+            array[i] = scanner.nextInt();
+        }
+        return array;
+    }
+
     public static void revers(int[] array) {
         System.out.print("[");
         for (int i = array.length - 1; i >= 0; i--) {
@@ -50,7 +80,6 @@ public class Zajecia4 {
         }
         System.out.print("]");
     }
-
 
     public static int minFromArray(int[] array) {
         int tmpMin = array[0];
