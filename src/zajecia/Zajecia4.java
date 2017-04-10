@@ -31,10 +31,7 @@ public class Zajecia4 {
         statistics(newArray);
 
         System.out.println("\nA least, your reversed array:");
-        displayArray(reverseArray(newArray));
-        //lub:
-        //int[] tmp_array = reverseArray(newArray);
-        //displayArray(tmp_array);
+        displayReversedArray(newArray);
 
     }
 
@@ -56,7 +53,7 @@ public class Zajecia4 {
 
 
     public static void displayReversedArray(int[] array) {
-        displayArray(array);
+        displayArray(reverseArray(array));
     }
 
    public static int[] reverseArray(int[] array) {
