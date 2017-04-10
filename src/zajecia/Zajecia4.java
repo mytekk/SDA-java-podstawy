@@ -30,6 +30,12 @@ public class Zajecia4 {
         System.out.println("\nAnd now, statistics for you array!");
         statistics(newArray);
 
+        System.out.println("\nA least, your reversed array:");
+        displayArray(reverseArray(newArray));
+        //lub:
+        //int[] tmp_array = reverseArray(newArray);
+        //displayArray(tmp_array);
+
     }
 
     public static void statistics(int[] array) {
@@ -44,30 +50,32 @@ public class Zajecia4 {
         System.out.println("Sum: " + sumValue);
         System.out.println("Avg: " + avgValue);
         System.out.println("Span: " + spanValue);
-        revers(array);
     }
 
-    public static void revers(int[] array) {
-        System.out.print("[");
-        for (int i = array.length - 1; i >= 0; i--) {
-            System.out.print(array[i]);
-            if (i != 0) {
-                System.out.print(", ");
-            }
 
-        }
-        System.out.print("]");
-    }
+
 
     public static void displayReversedArray(int[] array) {
-        //***
+        displayArray(array);
     }
 
-   // public static int[] reverseArray(int[] array) {
+   public static int[] reverseArray(int[] array) {
         //tworzymy pusta tablice o tej samejdlugosci co pierwotna
+        int[] tmp = new int[array.length];
+
         //przepisujemy elementy
+        for (int i = 0; i<array.length; i++) {
+            tmp[array.length -1 - i] = array[i];
+            //biore biezacy zadanej tablicy i zapisuje go jako przeciległy element nowej wynikowej tablicy
+            //np dla tablicy o 7 elementach:
+            //w pierwszej iteracji biore pierwszy (i=0) element zadanej tablicy i wpisuje go jako (dlugosc - 1 - iteracja) = 6 element nowej tablicy
+            //w drugiej iteracji biore drugi (i=1) element zadanej tablicy i wpisuje go jako (dlugosc - 1 - 1) = 5 element nowej tablicy
+            //itd...
+        }
+
         //zwracamy nowa tablice
-   // }
+       return tmp;
+    }
 
     public static void displayArray(int[] array) {
         System.out.print("[");
