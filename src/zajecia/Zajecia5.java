@@ -62,8 +62,41 @@ public class Zajecia5 {
 //        printOneMatrix(5);
 //        printEmptySquare(5);
 //        printChessBoard(5);
-        tree(4);
+//        tree(3);
+//        homework();
+        lineOfNumbers(5);
 
+
+    }
+
+    //1
+    //  2
+    //   3
+    //    4
+    public static void lineOfNumbers(int value) {
+        for (int i = 0; i < value; i++) {
+            for (int j = 0; j < i; j++) { //tutaj drukowanie spacji - spacji jest tyle jaki jest numer wiersza (czyli i)
+                System.out.print("  "); //wypisuje dwie spacje jako jeden odstep ze wzgledow estetycznych
+            }
+            //teraz liczba do wydrukowania, czyli i+1
+            System.out.println((i+1));
+        }
+    }
+
+    public static void homework() {
+        //losujemy liczbe z przedzialu 15-25
+        Random random = new Random();
+        int size = random.nextInt(10) + 15;
+        System.out.println("SIZE: " + size);
+        //wywolac metode getArray
+        int[] array = getArray(size);
+                //mozna tez:
+                //int[] array = getRandomArray(10, 10, 15);
+        Zajecia4.displayArray(array);
+        //uzyc wygenerowanej tablicy w metodzie statistics
+        Zajecia4.statistics(array);
+        //dla wylosowanej (liczby - 12) zrobic drzewko
+        tree(size - 12);
     }
 
     //a = 3
