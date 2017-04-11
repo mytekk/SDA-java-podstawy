@@ -62,7 +62,7 @@ public class Zajecia5 {
 //        printOneMatrix(5);
 //        printEmptySquare(5);
 //        printChessBoard(5);
-        tree(3);
+        tree(4);
 
     }
 
@@ -92,6 +92,12 @@ public class Zajecia5 {
             System.out.println();
         }
         //teraz korzeń
+        for (int i = 0; i < a; i++) { //wierszy jest tyle ile a
+            for (int j = 0; j < a-1; j++) { //drukuje (a-1) spacji w wierszu...
+                System.out.print("  ");
+            }
+            System.out.println("*"); //... oraz jedna gwiazdke
+        }
     }
 
 
@@ -131,6 +137,10 @@ public class Zajecia5 {
         }
     }
 
+    //1 0 0 0
+    //0 1 0 0
+    //0 0 1 0
+    //0 0 0 1
     public static void printOneMatrix(int a) {
         for (int i = 0; i < a; i++) {
             for (int j = 0; j < a; j++) {
@@ -176,6 +186,10 @@ public class Zajecia5 {
 //        return maxWartoscWMacierzy - String.valueOf(liczba).length(); //
 //    }
 
+//    *
+//    * *
+//    * * *
+//    * * * *
     public static void printTriangle(int a) {
         for (int i = 0; i < a; i++) {
             for (int j = 0; j <= i; j++) { //drukuje tyle kropek ile wartoci ma w sobie zewnetrzny licznik
