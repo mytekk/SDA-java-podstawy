@@ -35,31 +35,104 @@ public class Zajecia6 {
 //        int result2 = sumOfDigits(2000);
 //        System.out.println("sum of digits: " + result2);
 
-        boolean result = sumOfRandom(75);
-        System.out.println("Managed?: " + result);
+//        boolean result = sumOfRandom(75);
+//        System.out.println("Managed?: " + result);
 
+//        System.out.println(sumOfRandom(150));
+//        System.out.println(sumOfRandom(150));
+//        System.out.println(sumOfRandom(150));
+
+
+        Zajecia4.displayArray(numberToArray(99712));
+        System.out.println();
+        int[] tmpArray = {9, 9, 7, 1, 2};
+        System.out.println(arrayToNumber(tmpArray));
     }
 
-    public static boolean sumOfRandom(int sum) {
+    public static int[] numberToArray(int number) {
+        //997 -> [9, 9, 7]
+
+        //definicja tablicy - korzystam z mojej wczesniejszej metody
+        int[] array = new int[numberOfDigits(number)];
+
+        //1 wariant
+        for (int i = array.length - 1; i >= 0; i--) {
+            int tmpNumber = number % 10;
+            number = number /10;
+            array[i] = tmpNumber;
+        }
+
+
+        //2 wariant
+//        int i = 0;
+//        while (i < array.length) {
+//            int value = number % 10;  //zapisuje to co szukam, czyli reszta z dzielenia % 10
+//            number /= 10; //obcinam number, czyli dziele przez 10, biore wynik bez reszty
+//            array[array.length - i -1] = value; //zapisuje do wynikowej tablicy, ale od konca
+//
+//            i++;
+//        }
+
+
+        return array;
+    }
+
+    public static int arrayToNumber(int[] array) {
+        //[9, 9, 7] -> 997
+        int result = 0;
+
+        //odwracam tablice
+        array = Zajecia4.reverseArray(array);
+
+        //[7, 7, 9]
+        //przechodze przez te tablicei poszczegolne elementy mnoze przez kolejne potegi liczby 10 (konkretnie: 1, 10, 100, 1000 itd...); calosc sumuje
+        int multiplier = 1;
+        for (int i = 0; i < array.length; i++) {
+            result = result + array[i] * multiplier;
+            multiplier = multiplier * 10;
+        }
+        return result;
+
+        //2 wariant
+        //gdyby zrobic bez odwracania tablicy to by bylo tak:
+        //siegamydo kolejnych elementow tablicy, ale od konca:
+//        for (int i = 0; i < array.length; i++) {
+//            result = result + array[array.length - i - 1] * multiplier;
+//            multiplier = multiplier * 10;
+        //}
+
+        //3 wariant - z whilem
+        //while ()
+    }
+
+    public static int sumOfRandom(int value) {
         //losujemy od -10 do 20
         //robimy z tego sume az nie przekroczymy zadanego sum
         Random random = new Random();
 
-        //mam sobie sam generowac losowa tablice, czy mam ja dostac w argumencie?
-        int[] array = new int[20];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(30) - 10;
+        int sum = 0;
+        int i = 0;
+
+        while (sum < value) {
+            sum += random.nextInt(30) - 10;
+            i++;
         }
+        return i;
+
+        //mam sobie sam generowac losowa tablice, czy mam ja dostac w argumencie?
+//        int[] array = new int[20];
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = random.nextInt(30) - 10;
+//        }
 
         //wyswietlam tablice
-        Zajecia4.displayArray(array);
-        System.out.println();
+//        Zajecia4.displayArray(array);
+//        System.out.println();
 
         //sumuje elementy do zadanej wartosci korzystajac z wczesniejszej funkcji, ktora przy okazji zwraca info czy udalo sie dojsc do zadanej wielkosci
-        boolean managed = sumUntil(array, sum);
+//        boolean managed = sumUntil(array, sum);
 
-        return managed;
-
+//        return managed;
     }
 
     public static int sumOfDigits(int number) {
