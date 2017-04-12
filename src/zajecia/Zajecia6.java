@@ -29,20 +29,43 @@ public class Zajecia6 {
 //        int result2 = gameBot(wantedNumber);
 //        System.out.println("You finished in " + result2 + " steps.");
 
-        int result = numberOfDigits(2000);
-        System.out.println("number of digits: " + result);
+//        int result = numberOfDigits(2000);
+//        System.out.println("number of digits: " + result);
 //
-        int result2 = sumOfDigits(2000);
-        System.out.println("sum of digits: " + result2);
+//        int result2 = sumOfDigits(2000);
+//        System.out.println("sum of digits: " + result2);
+
+        boolean result = sumOfRandom(75);
+        System.out.println("Managed?: " + result);
 
     }
 
-//    public static int sumOfRandom(int sum) {
-//        losujemy od -10 do 20
-//        robimy z tego sume az nie przekroczymy zadanego sum
-//    }
+    public static boolean sumOfRandom(int sum) {
+        //losujemy od -10 do 20
+        //robimy z tego sume az nie przekroczymy zadanego sum
+        Random random = new Random();
+
+        //mam sobie sam generowac losowa tablice, czy mam ja dostac w argumencie?
+        int[] array = new int[20];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(30) - 10;
+        }
+
+        //wyswietlam tablice
+        Zajecia4.displayArray(array);
+        System.out.println();
+
+        //sumuje elementy do zadanej wartosci korzystajac z wczesniejszej funkcji, ktora przy okazji zwraca info czy udalo sie dojsc do zadanej wielkosci
+        boolean managed = sumUntil(array, sum);
+
+        return managed;
+
+    }
 
     public static int sumOfDigits(int number) {
+        //zwraca sume cyfr w liczbie
+        //zliczaj kolejne reszty z dzielenia number przez 10. suma tych reszt to szukana wartosc.
+        //po kazdej iteracji pod number podstawiaj wynik dzielenia (te calkowita czesc, a nie reszte) i niech petla trwa tak dlugo az nie dojdziesz z number do 1
         int sum = 0;
         while (number >= 1) {
             sum += number % 10;
