@@ -27,8 +27,8 @@ public class Zajecia7 {
 //        displayMatrix(matrixFromUser);
 
         System.out.println("Sum of two matrix");
-        int[][] matrix1 = {{10, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        int[][] matrix2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 90}};
+        int[][] matrix1 = {{10, 2, 3}, {4, 5, 6}, {7, 8, 90}};
+        int[][] matrix2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int[][] sumOfTwoMatrix = addTwoArrays(matrix1, matrix2);
         displayMatrix(sumOfTwoMatrix);
 
@@ -55,11 +55,46 @@ public class Zajecia7 {
         int tmp = maxValue(matrix1);
         System.out.println(tmp);
 
+        System.out.println("Product of two matrix:");
+        int[][] productMatrix = product(matrix1, matrix2);
+        displayMatrix(productMatrix);
+
+        int[][] matrix = fillWithRandomNumbers(3, 3);
+        for (int i = 0; i < 100; i++) {
+            matrix = biggerValues(matrix, fillWithRandomNumbers(3, 3));
+            if (i % 10 == 0) {
+                displayMatrix(matrix);
+            }
+        }
+        displayMatrix(matrix);
+
     }
 
     public static int[][] product(int[][] matrix1, int[][] matrix2) {
         //iloczyn dwoch macierzy
-        return null;
+        //WYMAGANIE WEJSCIOWE:  pierwsza macierz musi miec tyle kolumn ile wierszy ma ta druga
+        //macierz wynikowa ma tyle wierszy ile wierszy ma pierwsza maciez i tyle kolumn ile kolumn ma druga macierz
+        int[][] resultMatrix = new int[matrix1.length][matrix2[0].length];
+
+        //przechodze przez nowamacierz i wyznaczam jej elementy
+        for (int i = 0; i < matrix1.length; i++) {
+            for (int j = 0; j < matrix2[0].length; j++) {
+                int tmp = 0;
+                //teraz musze przejsc przez obecny wiersz pierwszej macierzy i wymnozyc jego elementy
+                //przez odpowiadajace elementy z pierwszej kolumny drugiej maciezy
+                //wszystko zsumowac i to bedzie element resultMatrix[i][j]
+                //matrix1[i][k] - w każdej iteracji tej trzeciej pętli i jest stałe, a k się zwieksza
+                //dzięki temu przebiegam przez cały (i-ty) wiersz pierwszej macierzy
+                //matrix2[k][j] - wkażdej iteracji tej trzeciej petli j jest stałe, a k się zwiększa. Dzieki temu, że
+                //na pierwszym miejscu jest k, a na drugim i  to to daje nam to, że przechodze przez te same elementy
+                //kolejnych wierszy macierzy drugiej - czyli de facto przechodze przez odpowiednią (j-tą) kolumnę!
+                for (int k = 0; k < matrix1[i].length; k++) {
+                    tmp = tmp + (matrix1[i][k] * matrix2[k][j]);
+                }
+                resultMatrix[i][j] = tmp;
+            }
+        }
+        return resultMatrix;
     }
 
     public static int maxValue(int[][] matrix) {
@@ -67,7 +102,7 @@ public class Zajecia7 {
         int maxValue = 0;
 
         for (int i = 0; i < matrix.length; i++) {
-                if (Zajecia4.maxFromArray(matrix[i]) > maxValue) { //sprawdzam maxymalna wartosc z calego wiersza, ktory tez jest talica
+                if (Zajecia4.maxFromArray(matrix[i]) > maxValue) { //sprawdzam maxymalna wartosc z danego wiersza, ktory tez jest talica
                     maxValue = Zajecia4.maxFromArray(matrix[i]);
                 }
         }
