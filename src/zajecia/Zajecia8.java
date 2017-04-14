@@ -6,7 +6,7 @@ package zajecia;
 public class Zajecia8 {
     public static void main(String[] args) {
 
-        String message = "Alama Kota.";
+        String message = "Ala ma Kota.";
 
         System.out.println("Count of characters: " + countCharacter("ala ma kota i dwa psy", 'a'));
         System.out.println("Number of capitals: " + countCapitalLetter(message));
@@ -17,33 +17,102 @@ public class Zajecia8 {
         System.out.println("Is palindrome: " + isPalindrome(message));
         System.out.println("Starts with 'Ala'? " + startsWith(message, "Ala"));
         System.out.println("Starts with 'Beata'? " + startsWith(message, "Beata"));
+        System.out.println("toUpperCase: " + toUpperCase(message));
+        System.out.println("toLowerCase: " + toLowerCase(message));
+        System.out.println("sum of numbers: " + sumOfNumbers("ala ma 2 koty i 3 psy"));
 
     }
 
+
+
     public static String toUpperCase(String message) {
         //w wyniku ma dac stringa rozpoczynajacego sie od duzej litery, niezaleznie jakaprzyszla pierwotna
-        return null;
+        //zamiana stringa natablice pojedynczych znakow
+        char[] charArray = message.toCharArray();
+
+        //if ((int)charArray[0] >= 97 && (int)charArray[0] <= 122) { //male na duze
+        //    charArray[0] = (char)(charArray[0] - 32);
+            //lub
+            //charArray[0] -= 32;
+        //}
+
+        //albo zamiast calego if-a
+        charArray[0] -= ((int)charArray[0] >= 97 && (int)charArray[0] <= 122) ? 32 : 0;
+
+        return String.valueOf(charArray);
     }
 
     public static String toLowerCase(String message) {
         //w wyniku ma dac stringa rozpoczynajacego sie od malej litery, niezaleznie jakaprzyszla pierwotna
-        return null;
+        //zamiana stringa natablice pojedynczych znakow
+        char[] charArray = message.toCharArray();
+
+        //if ((int)charArray[0] >= 65 && (int)charArray[0] <= 90) { //duze na male
+        //    charArray[0] = (char)(charArray[0] + 32);
+        //}
+
+        //albo zamiast calego if-a
+        charArray[0] += ((int)charArray[0] >= 65 && (int)charArray[0] <= 90) ? 32 : 0;
+        return String.valueOf(charArray);
     }
 
     public static int sumOfNumbers(String message) {
         //Ala ma 2 koty i 35 psy
         //wersja normal zwroci: 2 + 3 +5 = 10
         //wersja premium zwroci: 2 + 35 = 37
-        return 0;
+
+        //wersja normalna
+        //ala ma 2 koty i 3 psy
+        char[] charArray = message.toCharArray();
+        int sum = 0;
+
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] > 48 && charArray[i] <= 57) {
+                sum += charArray[i] - 48; //nie trzeba rzutowac, bo int jest mocniejszy od char (zapisujemy wynik do int)
+                                            //gdyby zapisywac do char, to by trzeba rzutowac
+                //sum += Character.getNumericValue(charArray[i]) ;
+            }
+        }
+        return sum;
     }
 
     public static boolean startsWith(String message, String someValue) {
         //czy string zaczyna sie od someValue?
         //substring(int startIndex, int endIndex)
-        return (message.substring(0, someValue.length() ).equals(someValue));
+        //return (message.substring(0, someValue.length() ).equals(someValue));
         //return (message.substring(0, someValue.length() ) == someValue); //na chlopski rozum powinno dzialac
                                                                         //ale nie tutaj, bo == nie da rady !!!!
         // DO POROWNYWANIA STRINGOW UZYWAMY EQUALS !!!
+
+        //gdyby nie umiec substring, to tez szukanego stringa, przerob go na tablice znakow
+        //przejdz w petli po tej tablicy i porownoj z odpowiadajacym elementem z message
+        //jesli wszystkie beda takie same, to wynik jest OK
+        //zamiana stringa natablice pojedynczych znakow
+        char[] messageArray = message.toCharArray();
+        char[] someValueArray = someValue.toCharArray();
+
+        for (int i = 0; i <someValueArray.length; i++) {
+            if (someValueArray[i] != messageArray[i]) return false;
+        }
+        return true;
+
+        //albo za pomoca while
+        //boolean flag = true;
+        //int i = 0;
+        //while (flag && i < someValueArray.length) {
+        //    if (someValueArray[i] != messageArray[i]) {
+        //        flag = false;
+        //    }
+
+            //albo zamiast if-a
+            //flag = !(someValueArray[i] !=  messageArray[i]);
+            //flag = (someValueArray[i] ==  messageArray[i]);
+
+            //podbijam i
+        //    i++;
+        //}
+        //return flag;
+
     }
 
     public static boolean isPalindrome(String message) {
