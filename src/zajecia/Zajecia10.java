@@ -43,8 +43,10 @@ public class Zajecia10 {
 
 
     }
+    
+
     public static double[][] avg(int[][] matrix1, int[][] matrix2) {
-        //zwraca macierz z elementami srednimi odpowiednich elementow z macierzy wejsciowych
+        //zwraca macierz z elementami srednimi odpowiednich elementow z dwoch macierzy wejsciowych
         double[][] resultMatrix = new double[matrix1.length][matrix1[0].length];
 
         for (int i = 0; i < resultMatrix.length; i++) {
@@ -57,7 +59,6 @@ public class Zajecia10 {
 
     public static double avg(int[][] matrix) {
         //srednia elementow z macierzy
-
         int sum = sum(matrix);
         int numberOfElements = matrix.length * matrix[0].length;
         return (double)sum/numberOfElements;
@@ -93,8 +94,8 @@ public class Zajecia10 {
         int product = 1; //wartosc poczatkowa
 
         while (number > 0) {
-            product = product * (number % 10); //(number % 10) - daje poszczegolne cyfry liczby, potem zmniejszam (dziele) number
-            number /= 10;
+            product = product * (number % 10); //(number % 10) - daje poszczegolne cyfry liczby, ktore dzieki temu moge przez siebie wymnazac
+            number /= 10;   //potem zmniejszam (dziele) number i biore calkowita czesc, by w kolejnej iteracji dobrac sie do kolejnej (zawsze ostatniej) cyfry
         }
         return product;
     }
@@ -114,14 +115,14 @@ public class Zajecia10 {
 
     public static int[] stringStatistics(String message) {
         //aabbbbccee -> {2, 4, 2, 0, 2, ...}
-        //zwraca tablice w liczba wystapiec poszczegolnych liter alfabetu
+        //zwraca tablice w liczba wystapien poszczegolnych liter alfabetu
 
         //moj wariant
         //int[] resultArray = new int[26];
 
-        //robie 27 przejs cpetli, od 0 do 27
-        //w kazdym przejsciu dana litera jest reprezentowana przez indeks (i + 97), bo 'a' ma indeks 97 w tablicy scii
-        //w kazdej iteracji licze wystapienia danej litery w message i wynik zapisuje w tablicy wynikowej pod indeksem i
+        //robie 26 przejs cpetli
+        //w kazdym przejsciu dana litera jest reprezentowana przez indeks (i + 97), bo 'a' ma indeks 97 w tablicy ascii
+        //w kazdej iteracji licze wystapienia danej litery w message i wynik zapisuje w tablicy wynikowej pod indeksem "i"
         //(char)(i+97) - to moja literka w danej iteracji
         /*
         for (int i = 0; i < resultArray.length; i++) {
@@ -131,17 +132,21 @@ public class Zajecia10 {
         }
         return resultArray;
         */
-        //lepszy wariant
-        char[] charArray = message.toCharArray();
-        int[] ints = new int[26];
 
-        for (int i = 0; i < charArray.length; i++) {
-            char charInLowerCase = toLowerCase(charArray[i]);
+        //lepszy wariant
+        //tutaj przebiegam po tablicy wejsciowej i jesli dany znak (wczesniej zamieniony na maly znak) jest literka, to wtedy w tablicy wynikowej
+        //podbijam element o odpowiednim indeksie w tablicy wynikowej
+        //ten wariant jest lepszy, bo nie korzystam z dodatkowej metody countAll, ktora ma w sobie petle, czyli w efekcie nie robie dwoch petli, tylko te jedną
+        char[] messageArray = message.toCharArray();
+        int[] resultArray = new int[26];
+
+        for (int i = 0; i < messageArray.length; i++) {
+            char charInLowerCase = toLowerCase(messageArray[i]);
             if (charInLowerCase >= 97 && charInLowerCase <= 122) {
-                ints[charInLowerCase - 97]++;  //dla 'a' ten index wyniesie 0 w tablicy wynikowej
+                resultArray[charInLowerCase - 97]++;  //dla 'a' ten index wyniesie 0 w tablicy wynikowej, dla 'b' indeks bedzie 1, itd...
             }
         }
-        return ints;
+        return resultArray;
     }
 
     public static int countAll(String message, char sentence) {
@@ -155,11 +160,11 @@ public class Zajecia10 {
                 counter++;
             }
         }
-
         return counter;
     }
 
     public static char toLowerCase(char a) {
+        //zamienia duze litery na male
         if (a >= 65 && a <= 90) {
             a += 32;
         }
@@ -175,9 +180,17 @@ public class Zajecia10 {
         int i = 0;
         boolean flag = false;
 
+        //przechodze w petli przez messageArray tak dlugo dopoki nie wyjde poza zakres i dopoki flaga = false
         while (i < messageArray.length && !flag) {
             flag = false;
-//            if (messageArray[i] == sentenceArray[0]) {
+
+                //w podpetli przebiegam po znakach z szukanego sentence, musze uwazac, zeby nie wyjsc poza zakres sentence
+                //w podpetli sprawdzam, czy kolejne (dalsze niż i) znaki z message są takie same jak kolejne znaki z sentence
+                //jeśli są, to podpetla działą i zwiększa j - czyli sprawdzam po kolei kazdy znak z sentence
+                //jesli uda mi sie dojsc z wielkością j do (dlugosc sentence - 1), to znaczy, ze fraza sentence zostala znaleziona i mozna ustawic flage na true
+                //ustawienie flagi na true powoduje przerwanie obydwu petli, wartosc gotowa do zwrocenia to (i-1), poniewaz (i-1) symbolizuje indeks pierwszej literki z sentence w message
+                //minus jeden bierze sie stad, ze po przerwaniu wewnetrznej petli musi sie jeszcze dokonczyc ostatni przebieg zewnetrznej petli, gdzie nastepuje i++
+                //stad przy returnie musze to odjac
                 int j = 0;
                 while (j < sentenceArray.length && messageArray[i+j] == sentenceArray[j]) {
                     if (j == sentenceArray.length -1) {
@@ -185,10 +198,9 @@ public class Zajecia10 {
                     }
                     j++;
                 }
-//            }
             i++;
         }
-        return i == messageArray.length ? -1 : i-1;
+        return i == messageArray.length ? -1 : i-1; //jesli doszedlem ze zmienna i do konca, to znaczy, ze nie odnalazlem frazy
     }
 
     public static int find(String message, char sentence) {
@@ -197,14 +209,14 @@ public class Zajecia10 {
         char[] charArray = message.toCharArray();
         int i = 0;
 
-        //robimy petle tak dlugo jak nie znajdziemy znaku
+        //robimy petle tak dlugo jak nie znajdziemy znaku i tak dlugo az nei wyjdziemy poza zakres tablicy
+        //sprawdzanie rownosci znakow robie w warunku petli, a w jej ciele wystarczy, ze podbijam i
         while (i < charArray.length && charArray[i] != sentence) {
             i++;
         }
-        //na koniec petli, jesli i bedzie rownie dlugosci tablicy, to znaczy, zenei znalezlismy
+        //na koniec petli, jesli i bedzie rownie dlugosci tablicy, to znaczy, ze nei znalezlismy szukanego znaku
         //w przeciwnym razie znalezlismy, pod indexem rownym i
         return (i == charArray.length) ? -1 : i;
-
     }
 
 

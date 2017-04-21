@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by RENT on 2017-04-04.
  */
-public class ZadaniaZeScannerem {
+public class Zajecia1_ZadaniaZeScannerem {
     public static void main(String[] args) {
 
         //checkOfSthFromUser();
