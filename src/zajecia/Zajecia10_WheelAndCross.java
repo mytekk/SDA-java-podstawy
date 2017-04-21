@@ -8,25 +8,14 @@ import java.util.Scanner;
 public class Zajecia10_WheelAndCross {
 
     public static void main(String[] args) {
-
         char[][] gameBoard = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
-
-        Scanner scanner = new Scanner(System.in);
+        int i = 0; //licznik krokow
 
         //gra zakonczy sie po co najwyzej 9 prawidlowych ruchach
-        for (int i = 0; i < 9; i++) {
-            boolean inputFromUserFlag = false;  //flaga wyjscia z petli pytajacej usera o pozycje na ganeBoard
+        //graamy dopoki funkcja sprawdzajaca nie zwroci true
+        while (!isGameEnded(gameBoard, i)) {
             displayBoard(gameBoard);
-            int position = 0;
-
-            while (!inputFromUserFlag) { //petla dziala dopoki flaga = false
-                System.out.println("Insert sign position: ");
-                position = scanner.nextInt();
-                inputFromUserFlag = validatePositionFromUser(position, gameBoard); //tu jest sterownik whilea
-                if (!inputFromUserFlag) { //jesli flaga jest false, to niech user poda pozycje jeszcze raz
-                    System.out.println("Wrong position. Insert again.");
-                }
-            }
+            int position = getPositionFromUser(gameBoard);
 
             //kiedy mamy juz poprawna pozycje podane przez usera, to zamieniam ja na wspolrzedne punktu, w ktorym bedzie wstawione kolko lub krzyzyk
             int[] positions = convertPosition(position);
@@ -34,9 +23,8 @@ public class Zajecia10_WheelAndCross {
             //w miejscewybrane przez usera wstawiam kolko lub krzyzyk
             gameBoard[positions[0]][positions[1]] = (i % 2 == 0) ? 'X' : 'O'; //kolko i krzyzyk na zmiane co drugi ruch
 
-            System.out.println();
-            System.out.println();
-            System.out.println();
+            i++; //zwiększam numer kroku
+
             System.out.println();
             System.out.println();
         }
@@ -44,7 +32,78 @@ public class Zajecia10_WheelAndCross {
         //koniec gry i koncowe wyswietlenie tablicy
         System.out.println("End of game!");
         displayBoard(gameBoard);
+    }
 
+    private static int getPositionFromUser(char[][] gameBoard) {
+        //funkcja tak dlugo pobiera i waliduje pozycje od usera,az nie dostanie poprawnej i pustej pozycji
+        Scanner scanner = new Scanner(System.in);
+        boolean inputFromUserFlag = false; //flaga wyjscia z petli pytajacej usera o pozycje na gameBoard
+        int position = 0; //wartosc poczatkowa odpowiedzi od usera
+
+        while (!inputFromUserFlag) { //petla dziala dopoki flaga = false
+            System.out.println("Insert sign position: ");
+            position = scanner.nextInt();
+            inputFromUserFlag = validatePositionFromUser(position, gameBoard); //tu jest sterownik whilea
+            if (!inputFromUserFlag) { //jesli flaga jest false, to niech user poda pozycje jeszcze raz
+                System.out.println("Wrong position. Insert again.");
+            }
+        }
+        return position;
+    }
+
+    public static boolean checkRows(char[][] gameBoard) {
+        //czy w ktoryms wierszu mam 3 takie same znaki
+        //petla po wierszach
+        int i = 0; //indeks wiersza
+        boolean flag = false;
+        while (i < gameBoard.length && !flag) {
+            if ( (gameBoard[i][0] == gameBoard[i][1]) && (gameBoard[i][0] == gameBoard[i][2]) ) {
+                flag = true;
+            }
+            //flag = (gameBoard[i][0] == gameBoard[i][1]) && (gameBoard[i][0] == gameBoard[i][2]);
+            i++;
+        }
+        return flag;
+    }
+
+    public static boolean checkColumns(char[][] gameBoard) {
+        //czy w ktorejs kolumnie mam 3 takie same znaki
+        //petla po kolumnach
+        int i = 0; //indeks kolumny
+        boolean flag = false;
+        while (i < gameBoard[0].length && !flag) {
+            if ( (gameBoard[0][i] == gameBoard[1][i]) && (gameBoard[0][i] == gameBoard[2][i]) ) {
+                flag = true;
+            }
+            //flag = (gameBoard[0][i] == gameBoard[1][i]) && (gameBoard[0][i] == gameBoard[2][i]);
+            i++;
+        }
+        return flag;
+    }
+
+    public static boolean checkSecondDiagonal(char[][] gameBoard) {
+        return ((gameBoard[0][2] == gameBoard[1][1]) && (gameBoard[0][2] == gameBoard[2][0]));
+    }
+
+    public static boolean checkFirstDiagonal(char[][] gameBoard) {
+        return ((gameBoard[0][0] == gameBoard[1][1]) && (gameBoard[0][0] == gameBoard[2][2]));
+    }
+
+    public static boolean checkDiagonals(char[][] gameBoard) {
+        //czy w ktorejs przekatnie mam 3 takie same znaki
+        //elementy pierwszej przekatnej maja wspolrzedne 0-0, 1-1, 2-2, a drugiej 0-2, 1-1, 2-0
+        //return ( ((gameBoard[0][0] == gameBoard[1][1]) && (gameBoard[0][0] == gameBoard[2][2]) ||
+         //       ((gameBoard[0][2] == gameBoard[1][1]) && (gameBoard[0][2] == gameBoard[2][0]) ) ? true :false;
+        //nie moge zrobic a==b==c, tylko (a==b) && (a==c)
+
+        //drugi wariant
+        //jesli pole 1-1 bedzie puste to od razu mozna zwrocic false
+        return !isFieldEmpty(gameBoard, 1, 1) && ( checkFirstDiagonal(gameBoard) || checkSecondDiagonal(gameBoard) );
+    }
+
+    public static boolean isGameEnded(char[][] gameBoard, int gameStep) {
+        return (checkRows(gameBoard) || checkColumns(gameBoard) || checkDiagonals(gameBoard)) || !(gameStep < 9) ;
+        //gra konczy sie kiedy mamy gdzies 3 znaki obok siebie albo kiedy minal juz 9 krok (wtedy jest remis)
     }
 
     public static boolean validatePositionFromUser(int positionFromUser, char[][] gameBoard) {
