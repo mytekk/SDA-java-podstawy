@@ -14,7 +14,7 @@ public class Zajecia10 {
         int result2 = countAll("Ala ma kota.", 'a');
         System.out.println("char count: " + result2);
 
-        int result3 = find("Ala ma kota", "la");
+        int result3 = find("Ala ma kota", "kota");
         System.out.println("word position: " + result3);
 
         int[] resultStatistics = stringStatistics("Ala ma kota i Borsuka");
@@ -52,6 +52,20 @@ public class Zajecia10 {
         System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
         exp = ")(2+2)*2";
         System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
+        exp = ")2+2)*2(";
+        System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
+
+        int result4 = find("Ala ma kota", "kota");
+        System.out.println("word position: " + result4);
+
+        int result4a = find("Ala ma kota", "ma");
+        System.out.println("word position: " + result4a);
+
+        int result5 = find("Ala ma kot", "kota");
+        System.out.println("word position: " + result5);
+
+        int wordCount = countAll("Ala ma kota i ma tez psa.", "ma");
+        System.out.println("Count of words in sentence: " + wordCount);
 
 
     }
@@ -73,23 +87,33 @@ public class Zajecia10 {
     }
 
     public static boolean checkRoundBrackets(String expression) {
-        //((2+2)*2) -> true
         //(2+2)*2) -> false
+        //((2+2)*2) -> true
         //)(2+2)*2 -> false
+        //)2+2)*2( -> false
+        //czy po kazdym otwartym nawiasie wystepuje zamkniety nawias
+
+        //mam counter = 0. Przechodze po expression. Jesli mam nawiasotwierajacy to inkrementuje counter, jesli zamykajacy
+        //to dekrementuje. Jesliw pewnym momencie counter zejdzieponizejzera, to od razu moge zwrocic false (bo wtedy nawiasow zamykajacych
+        // bedziewiecej od otwieracjacych). Jesli po zakonczeniupetli counter bedzie wiekszy od zero to zwracam tez false (wtedy
+        //nawiasow otwierajacychjest wiecej. True zwracam tylko wtedy kiedy counter = 0
 
         char[] charArray = expression.toCharArray();
-        int sum1 = 0;
-        int sum2 = 0;
+        int counter = 0;
+        int i = 0;
 
-        for (int i = 0; i < charArray.length; i++) {
+        while (i < charArray.length && counter >= 0) {
             if (charArray[i] == '(') {
-                sum1++;
+                counter++;
             }
             if (charArray[i] == ')') {
-                sum2++;
+                counter--;
             }
+            i++;
         }
-        return sum1 == sum2;
+
+        return counter == 0;
+
     }
 
     public static int toNumber(String binaryCode) {
@@ -243,6 +267,18 @@ public class Zajecia10 {
         return resultArray;
     }
 
+    public static int countAll(String message, String sentence) {
+        //Ala ma kota i ma tez psa;  ma -> 2
+        int counter = 0; //licznik
+
+        while (find(message, sentence) != -1) { //szukam słowa w message, jak znajde to podbijam licznik i ucinam message,
+                                                // zeby moc szukac dalej pierwszego (kolejnego) wystapienia slowa w message
+            counter++;
+            message = message.substring(find(message, sentence) +1);
+        }
+        return counter;
+    }
+
     public static int countAll(String message, char sentence) {
         //Ala ma kota => zwroci liczbe 4  (bez wzgledu na wilkosc liter)
 
@@ -275,7 +311,10 @@ public class Zajecia10 {
         boolean flag = false;
 
         //przechodze w petli przez messageArray tak dlugo dopoki nie wyjde poza zakres i dopoki flaga = false
-        while (i < messageArray.length && !flag) {
+        //to odejmowanie znaczy, ze jesli zostalo mi do sprawdzenia mniej znakow niż ma szukane slowo
+        //czyli np. zostały mi 3 znaki do sprawdzenia, ale szukanywyraz ma 4 znaki
+        //to dalsze wyszukiwanie nie ma sensu
+        while (!flag && i <= (messageArray.length - sentenceArray.length) ) {
             flag = false;
 
                 //w podpetli przebiegam po znakach z szukanego sentence, musze uwazac, zeby nie wyjsc poza zakres sentence
@@ -287,14 +326,16 @@ public class Zajecia10 {
                 //stad przy returnie musze to odjac
                 int j = 0;
                 while (j < sentenceArray.length && messageArray[i+j] == sentenceArray[j]) {
-                    if (j == sentenceArray.length -1) {
+                    j++;
+                    if (j == sentenceArray.length) {
                         flag = true;
                     }
-                    j++;
+
                 }
             i++;
         }
-        return i == messageArray.length ? -1 : i-1; //jesli doszedlem ze zmienna i do konca, to znaczy, ze nie odnalazlem frazy
+        return flag ? i-1 : -1;
+        //return i == messageArray.length ? -1 : i-1; //jesli doszedlem ze zmienna i do konca, to znaczy, ze nie odnalazlem frazy
     }
 
     public static int find(String message, char sentence) {
