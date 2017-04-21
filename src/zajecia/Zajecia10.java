@@ -37,13 +37,107 @@ public class Zajecia10 {
         System.out.println("Sum of this matrix: " + sum(myRandomMatrix));
         System.out.println("Avg of this matrix: " + avg(myRandomMatrix));
 
-        System.out.println("Avg matrix: ");
-        double[][] resultAvgMatrix = avg(myRandomMatrix, myRandomMatrix2); //nie mam metody do wyswietlenia
+//        System.out.println("Avg matrix: ");
+//        double[][] resultAvgMatrix = avg(myRandomMatrix, myRandomMatrix2); //nie mam metody do wyswietlenia
 
+        int number = 73;
+        System.out.println("binary reprezentation of " + number + ": " + toBinary(number));
+
+        String binaryNumber = "1111000"; //73
+        System.out.println("Decimal representation of " + binaryNumber + ": " + toNumber(binaryNumber));
+
+        String exp = "((2+2)*2)";
+        System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
+        exp = "(2+2)*2)";
+        System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
+        exp = ")(2+2)*2";
+        System.out.println("Check round brackets of " + exp + ": " + checkRoundBrackets(exp));
 
 
     }
-    
+
+    public static int[] rgbToValues(String rgb) {
+        //#FF0050 -> {255, 0, 80}
+        //0 = 0, 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 6, 7 = 7, 8 = 8, 9 = 9, A = 10, B = 11, C = 12, D = 13, E = 14, F = 15
+
+//        7DE = (7 * 16^2) + (13 * 16^1) + (14 * 16^0)
+//        7DE = (7 * 256) + (13 * 16) + (14 * 1)
+//        7DE = 1792 + 208 + 14
+//        7DE = 2014 (in decimal number)
+
+//        FF = (15 * 16^1) + (15 * 16^0) = 240 + 15 = 255
+//        00 = (0 * 16^1) + (0 * 16^0) = 0 + 0 = 0
+//        50 = (5 * 15^1) + (0 * 16^0) =  80 + 0 = 80
+
+        return null;
+    }
+
+    public static boolean checkRoundBrackets(String expression) {
+        //((2+2)*2) -> true
+        //(2+2)*2) -> false
+        //)(2+2)*2 -> false
+
+        char[] charArray = expression.toCharArray();
+        int sum1 = 0;
+        int sum2 = 0;
+
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] == '(') {
+                sum1++;
+            }
+            if (charArray[i] == ')') {
+                sum2++;
+            }
+        }
+        return sum1 == sum2;
+    }
+
+    public static int toNumber(String binaryCode) {
+        //zamienic stringa na tablice charow
+        //przejsc w petli
+        //jesli znak = 1 to wtedy to ogolnej sumy dodac 2 do potegi (array.lenght - 1 - i) (bo pierwszy element to element z najwyzsza potega)
+        char[] charArray = binaryCode.toCharArray();
+        int result = 0; //koncowy wynik
+
+        for (int i = 0; i < charArray.length; i++) { //przebiegam po tablicy
+            int internalSum = 0; //czastkowa suma do dodania
+            if (charArray[i] == '1') {
+                internalSum = 1; //jesli mam jedynke, to czastkowa suma bedzie co najmniej jeden, a konkretnie będzie równa 2 do potęgi (array.lenght - 1 - i)
+                //a wiec tyle wlasnie razy musze przemnozyc czastkowa sume przez 2
+                for (int j = 0; j < (charArray.length - 1 - i); j++) {
+                    internalSum = internalSum * 2;
+                }
+            }
+            //na koniec iteracji dodaje czastkowa sume do globalnego wyniku
+            result += internalSum;
+        }
+        return result;
+    }
+
+    public static String toBinary(int number) {
+        //w petli dziele number przez 2 i pod number podstawiam calkowity wynik z dzielenia
+        //kolejne reszty w dzielenia, zapisane od tylu, tworza binarna reprezentacje number
+        String resultString = "";
+
+        while (number > 0) {
+            resultString += number % 2;
+            number /= 2;
+        }
+
+        //zamieniam na tablice char-ow
+        char[] charArray = resultString.toCharArray();
+
+        //zamieniam kolejnosc elementow
+        char[] tmpArray = new char[charArray.length];
+        for (int i = 0; i < charArray.length; i++) {
+            tmpArray[charArray.length -1 - i] = (char)charArray[i];
+        }
+
+        //z powrotem na string
+        resultString = String.valueOf(tmpArray);
+
+        return resultString;
+    }
 
     public static double[][] avg(int[][] matrix1, int[][] matrix2) {
         //zwraca macierz z elementami srednimi odpowiednich elementow z dwoch macierzy wejsciowych
