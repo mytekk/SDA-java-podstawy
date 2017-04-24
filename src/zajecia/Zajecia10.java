@@ -194,7 +194,7 @@ public class Zajecia10 {
     }
 
     public static int[][] randomMatrix(int size, int bounds, int offset) {
-        //zwraca macierz kwadratowa o rozmiarze size i randomowych elementach
+        //zwraca macierz kwadratowa o rozmiarze numberOfBooks i randomowych elementach
         int[][] resultArray = new int[size][size];
         Random random = new Random();
 

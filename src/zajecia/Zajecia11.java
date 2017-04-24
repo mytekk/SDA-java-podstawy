@@ -11,33 +11,55 @@ public class Zajecia11 {
     public static void main(String[] args) throws IOException {
 
         File file = new File("C:\\Users\\RENT\\IdeaProjects\\SDA-java-podstawy\\src\\zajecia\\blabla.txt");
-        readFromFileTest(file);
+//        readFromFileTest(file);
 //        writeToFileTest(file, "Hello world!");
 
-        int[] intArray = readIntegersFromFile(file);
-        Zajecia4.displayArray(intArray);
+//        int[] intArray = readIntegersFromFile(file);
+//        Zajecia4.displayArray(intArray);
 
-        int length = getLength(file);
-        System.out.println("\nLenght of file: " + length);
-
-
+//        int length = getLength(file);
+//        System.out.println("\nLenght of file: " + length);
+//
+//
         int tmp = countOddIntegers(file);
         System.out.println("\ncount of odd integers from sile: " + tmp);
+
+        int tmpCountWords = countWordsIn(file);
+        System.out.println("Count of words: " + tmpCountWords);
+    }
+
+    public static int countWordsIn(File file) throws FileNotFoundException {
+        //zwraca liczbe wyrazow w pliku
+        Scanner scanner = new Scanner(file);
+        int counter = 0;
+        while (scanner.hasNext()) {
+            scanner.next();
+            counter++;
+        }
+        return counter;
     }
 
     public static int countOddIntegers(File file) throws FileNotFoundException {
         //zwraca sume nieparzystych intow z pliku
         Scanner scanner = new Scanner(file);
-        int sum = 0;
+//        int sum = 0;
+//        for (int i = 0; i < getLength(file); i++) {
+//            if (scanner.hasNext() && scanner.nextInt() % 2 == 1) {
+//                System.out.println("i: " + i + "|" + scanner.nextInt() + "|");
+//                sum += scanner.nextInt();
+//            }
+//        }
+//
+//        return sum;
 
-        for (int i = 0; i < getLength(file); i++) {
-            if (scanner.hasNext() && scanner.nextInt() % 2 == 1) {
-//                System.out.println("|" + scanner.nextInt() + "|");
-                sum += scanner.nextInt();
+        int counter = 0;
+        while (scanner.hasNextInt()) {
+            if (scanner.nextInt() % 2 == 1) {
+                counter++;
             }
         }
-
-        return sum;
+//        scanner.close();
+        return counter;
     }
 
     public static int[] readIntegersFromFile(File file) throws FileNotFoundException {
