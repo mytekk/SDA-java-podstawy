@@ -16,6 +16,28 @@ public class Zajecia11 {
 
         int[] intArray = readIntegersFromFile(file);
         Zajecia4.displayArray(intArray);
+
+        int length = getLength(file);
+        System.out.println("\nLenght of file: " + length);
+
+
+        int tmp = countOddIntegers(file);
+        System.out.println("\ncount of odd integers from sile: " + tmp);
+    }
+
+    public static int countOddIntegers(File file) throws FileNotFoundException {
+        //zwraca sume nieparzystych intow z pliku
+        Scanner scanner = new Scanner(file);
+        int sum = 0;
+
+        for (int i = 0; i < getLength(file); i++) {
+            if (scanner.hasNext() && scanner.nextInt() % 2 == 1) {
+//                System.out.println("|" + scanner.nextInt() + "|");
+                sum += scanner.nextInt();
+            }
+        }
+
+        return sum;
     }
 
     public static int[] readIntegersFromFile(File file) throws FileNotFoundException {
