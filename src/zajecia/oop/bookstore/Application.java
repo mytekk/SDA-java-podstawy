@@ -8,23 +8,34 @@ import zajecia.Zajecia4;
 public class Application {
     public static void main(String[] args) {
 
+        //tworzymy nowa ksiegarnie
         Bookstore bookstore = new Bookstore();
 
+        //wrzucamy przykladow dane
         insertExampleData(bookstore);
 
+        //wyswietlamy wszystkie ksiazki z bookstore
         bookstore.showBooks();
 
+        //liczba ksiazek zadanego autora
         System.out.println(bookstore.getNumberOfBooks("Henryk Sienkiewicz"));
 
+        //zbior - tablica ksiazek zadanego autora
         Book[] booksOfSienkiewicz = bookstore.getBooks("Henryk Sienkiewicz");
         for (int i = 0; i < booksOfSienkiewicz.length; i++) {
             System.out.println(booksOfSienkiewicz[i]);
         }
 
+        //szukam ksiazki danego autora
+        Book bookOfAuthor = bookstore.getBook("Henryk Sienkiewicz");
+        System.out.println("\nbook of author: " + bookOfAuthor);
+
 
     }
 
     public static void insertExampleData(Bookstore bookstore) {
+
+        //utworzenie nowej ksiazki: obiekt klasy Book
         Book book = new Book("Ogniem i mieczem", "Henryk Sienkiewicz", "2001", "1234567890");
         book.size = 3;
 
@@ -46,6 +57,7 @@ public class Application {
         dziady4[2] = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
         book.content = dziady4;
 
+        //zapisanie poszczegolnych ksiazek do bookstore
         bookstore.add(book);
         bookstore.add(book2);
         bookstore.add(book3);

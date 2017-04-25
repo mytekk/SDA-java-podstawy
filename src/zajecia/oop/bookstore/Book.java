@@ -24,6 +24,7 @@ public class Book {
     }
 
     //tworzenie tego: alx + insert, potem wybierz toString
+    //ta funkcja zostanie uzyta zawsze kiedy, bedziemy chcieli wyswietlic jakas ksiazke, np. w sout. Uwaga - nawet nie trzeba bedzie podawac .toString :)
     @Override
     public String toString() {
         return "Book{" +
