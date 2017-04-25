@@ -1,7 +1,5 @@
 package zajecia.oop.bookstore;
 
-import zajecia.Zajecia4;
-
 /**
  * Created by RENT on 2017-04-24.
  */
@@ -21,14 +19,18 @@ public class Application {
         System.out.println(bookstore.getNumberOfBooks("Henryk Sienkiewicz"));
 
         //zbior - tablica ksiazek zadanego autora
-        Book[] booksOfSienkiewicz = bookstore.getBooks("Henryk Sienkiewicz");
+        Book[] booksOfSienkiewicz = bookstore.getBooks("Henryk Sienkiewiczz");
         for (int i = 0; i < booksOfSienkiewicz.length; i++) {
             System.out.println(booksOfSienkiewicz[i]);
         }
 
         //szukam ksiazki danego autora
-        Book bookOfAuthor = bookstore.getBook("Henryk Sienkiewicz");
+        Book bookOfAuthor = bookstore.getBookByAuthor("Henryk Sienkiewicz");
         System.out.println("\nbook of author: " + bookOfAuthor);
+
+        //szukam ksiazki po ISBN
+        Book bookByISBN = bookstore.getBook("1234");
+        System.out.println("\nBook by ISBN: " + bookByISBN);
 
 
     }
@@ -48,7 +50,7 @@ public class Application {
 
         Book book2 = new Book("Potop", "Henryk Sienkiewicz", "2002", "1234567890");
         Book book3 = new Book("Pan Wołodyjowski", "Henryk Sienkiewicz", "2003", "1234567890");
-        Book book4 = new Book("Quo vadis", "Henryk Sienkiewicz", "2004", "1234567890");
+        Book book4 = new Book("Quo vadis", "Henryk Sienkiewicz", "2004", "1234");
 
         Book book5 = new Book("Dziady 4", "Adam Mickiewicz", "2002", "1234567890");
         String[] dziady4 = new String[3];

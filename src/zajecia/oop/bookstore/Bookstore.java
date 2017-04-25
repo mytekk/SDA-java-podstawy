@@ -58,7 +58,7 @@ public class Bookstore {
         return bookToReturn;
     }
 
-    public Book getBook(String author) {
+    public Book getBookByAuthor(String author) {
         //zwraca ksiazke danego autora
 
         // wariant 1
@@ -82,4 +82,14 @@ public class Bookstore {
 //        }
 //        return bookToReturn;
     }
+
+    public Book getBook(String ISBN) {
+        //zwraca ksiazke pod ISBN, dziala analogicznie jak poprzednia funkcja, wariant 1
+        int i = 0;
+        while (i < this.numberOfBooks && !books[i].ISBN.equals(ISBN)) {
+            i++;
+        }
+        return i == this.numberOfBooks ? null : books[i];
+    }
+
 }
