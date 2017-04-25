@@ -32,6 +32,21 @@ public class Application {
         Book bookByISBN = bookstore.getBook("1234");
         System.out.println("\nBook by ISBN: " + bookByISBN);
 
+        // dygresja
+        // w tej chwili moge np dodac nowa ksiazke "recznie", czyli konstruktorem (a nie metoda add) i nie podbić zmiennej numbersofBook
+        // moge tez zwiekszyc te zmienna bez dodawania ksiazki
+        // efekt: pozostale metody, ktore przechodza w petli po books[] rozjadą mi się, bp np. zakres numberOfBooks
+        // bedzie wiekszy niż faktyczna liczba ksiażek
+        // by uniknac takiej sytuacji, wszystkie pola w klasie robimy na private :)
+        // dla kazdego prywatnego pola tworzymy publiczne settery :)
+        // alt + insert -> setter -> wybierz pola prywatne -> ok
+        // settery ustawiają dane
+        // gettery wyswietlają dane
+        // jesli chcemy, zeby np. tytul ksiazki byl niezmienny po jej utworzeniu, to nie tworzymy odpowiedniego settera
+        // wtedy tytul bedzie mozna utworzyc tylko raz - przy tworzeniu tego obiektu (w konstruktorze)
+
+
+
 
     }
 
@@ -39,13 +54,13 @@ public class Application {
 
         //utworzenie nowej ksiazki: obiekt klasy Book
         Book book = new Book("Ogniem i mieczem", "Henryk Sienkiewicz", "2001", "1234567890");
-        book.size = 3;
+        book.setSize(3);
 
         String[] ogniemIMieczem = new String[3];
         ogniemIMieczem[0] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         ogniemIMieczem[1] = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
         ogniemIMieczem[2] = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-        book.content = ogniemIMieczem;
+        book.setContent(ogniemIMieczem);
 
 
         Book book2 = new Book("Potop", "Henryk Sienkiewicz", "2002", "1234567890");
@@ -57,7 +72,7 @@ public class Application {
         dziady4[0] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
         dziady4[1] = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
         dziady4[2] = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-        book.content = dziady4;
+        book.setContent(dziady4);
 
         //zapisanie poszczegolnych ksiazek do bookstore
         bookstore.add(book);

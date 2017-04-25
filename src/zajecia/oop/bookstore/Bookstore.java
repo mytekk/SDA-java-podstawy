@@ -6,14 +6,31 @@ package zajecia.oop.bookstore;
 public class Bookstore {
 
     //klasa Bookstore to "półka z książkami", czyli tablica obiektów klasy Book
-    public Book[] books;
-    public int numberOfBooks; //licznik książek na półce
+    private Book[] books;
+    private int numberOfBooks; //licznik książek na półce
 
 
     public Bookstore() { //konstruktor bezargumentowy
         this.books = new Book[100]; //każdy nowy obiekt klasy Bookstore będzie mógł zawierać do 100 książek (100-elementowa tablica obiektów klasy Book)
         this.numberOfBooks = 0; //na początku mamy 0 książek
     }
+
+    // GETTERY
+
+    public Book[] getBooks() {
+        // zamiast dawac userowi cala tablice 100 elementow, to szybciutka buduje tablice tylu ksiazek ile faltycznie mam
+        Book[] booksToReturn = new Book[numberOfBooks];
+        for (int i = 0; i < this.numberOfBooks; i++) {
+            booksToReturn[i] = books[i];
+        }
+        return booksToReturn;
+    }
+
+    public int getNumberOfBooks() {
+        return numberOfBooks;
+    }
+
+    // SETTERY - brak, zamiast tego mam swoja metode add, przez to zabraniam tez edycji wczesniej zdefiniowanych ksiazek
 
     public boolean add(Book book) {
         //dodaje książkę do bookstore
@@ -36,7 +53,7 @@ public class Bookstore {
         //zwraca liczbe ksiazek danego autora
         int counter = 0;
         for (int i = 0; i < numberOfBooks; i++) {
-            if (books[i].author.equals(author)) { // po lewej jest poprawna wersja tego, co kiedyś bym zapisał tak: books[i].author == author
+            if (books[i].getAuthor().equals(author)) { // po lewej jest poprawna wersja tego, co kiedyś bym zapisał tak: books[i].author == author
                 counter++;
             }
         }
@@ -50,7 +67,7 @@ public class Bookstore {
 
         //przechodze po wszystkich ksiazkach
         for (int i = 0; i < numberOfBooks; i++) {
-            if (books[i].author.equals(author)) {
+            if (books[i].getAuthor().equals(author)) {
                 bookToReturn[index] = books[i];
                 index++;
             }
@@ -67,7 +84,7 @@ public class Bookstore {
         //biezaca ksiazka ma innego autora nic zadanego. Dzieki temu, jesli autor ma wiele ksiazek, to funkcja zwroci
         //pierwsza z jego ksiazek
         int i = 0;
-        while (i < numberOfBooks && !books[i].author.equals(author)) {
+        while (i < numberOfBooks && !books[i].getAuthor().equals(author)) {
             i++;
         }
         return i == numberOfBooks ? null : books[i]; //jesli doszedlem z licznikiem do numberOfBook to znaczy, ze nie znalazlem, w przeciwnym razie pod pozycja i bedzie szukana ksiazka
@@ -86,7 +103,7 @@ public class Bookstore {
     public Book getBook(String ISBN) {
         //zwraca ksiazke pod ISBN, dziala analogicznie jak poprzednia funkcja, wariant 1
         int i = 0;
-        while (i < this.numberOfBooks && !books[i].ISBN.equals(ISBN)) {
+        while (i < this.numberOfBooks && !books[i].getISBN().equals(ISBN)) {
             i++;
         }
         return i == this.numberOfBooks ? null : books[i];
