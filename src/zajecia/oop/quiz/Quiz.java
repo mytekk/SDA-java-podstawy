@@ -1,5 +1,9 @@
 package zajecia.oop.quiz;
 
+import zajecia.oop.quiz.question.MockQuestionRepository;
+import zajecia.oop.quiz.question.Question;
+import zajecia.oop.quiz.result.MockResultRepository;
+
 /**
  * Created by RENT on 2017-04-25.
  */
@@ -9,6 +13,9 @@ public class Quiz {
 
         // tworze obiekt klasy mock - czyli tworze naszego dostawce pytań:)
         MockQuestionRepository questionRepository = new MockQuestionRepository();
+
+        // tworze obiekt klasy mock results - czyli tworze naszego dostawce fakeowych wynikow
+        MockResultRepository resultRepository = new MockResultRepository();
 
         //tworze interfejs
         QuizInterface quizInterface = new QuizInterface();
@@ -45,7 +52,7 @@ public class Quiz {
             quizInterface.showResult(playerName, correctAnswerCounter);
 
         } else if (decision == 2) {
-            System.out.println("Not yet supported!");
+            quizInterface.showResults(resultRepository.getAllResult());
         } else {
             System.out.println("End of game.");
         }

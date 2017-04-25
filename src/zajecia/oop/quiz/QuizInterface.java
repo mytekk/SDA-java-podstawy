@@ -1,5 +1,8 @@
 package zajecia.oop.quiz;
 
+import zajecia.oop.quiz.question.Question;
+import zajecia.oop.quiz.result.Result;
+
 import java.util.Scanner;
 
 /**
@@ -64,6 +67,15 @@ public class QuizInterface {
 
     public void showResult(String name, int result) {
         System.out.println("Congratulations " + name + "! You finished game with score: " + result + ".");
+    }
+
+    //wyswietla tablice wynikow, jako argument przyjmuje tablice elementow klasy Result
+    public void showResults(Result[] results) {
+        System.out.println("Hall of fame:");
+        for (int i = 0; i < results.length; i++) {
+            System.out.println((i+1) + ". " + results[i].getPlayerName() + "\t" + results[i].getResult());
+        }
+        scanner.nextLine(); //po to, zeby konsola sie na chwile zatrzymala
     }
 
 }
