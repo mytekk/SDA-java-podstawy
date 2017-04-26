@@ -2,6 +2,7 @@ package zajecia.oop.quiz;
 
 import zajecia.oop.quiz.question.MockQuestionRepository;
 import zajecia.oop.quiz.question.Question;
+import zajecia.oop.quiz.result.FileResultsRepository;
 import zajecia.oop.quiz.result.MockResultRepository;
 import zajecia.oop.quiz.result.Result;
 
@@ -17,8 +18,8 @@ public class Quiz {
         // tworze obiekt klasy mock - czyli tworze naszego dostawce pytań:)
         MockQuestionRepository questionRepository = new MockQuestionRepository();
 
-        // tworze obiekt klasy mock results - czyli tworze naszego dostawce fakeowych wynikow
-        MockResultRepository resultRepository = new MockResultRepository();
+        // tworze obiekt klasy file results - czyli tworze naszego dostawce fakeowych wynikow z pliku
+        FileResultsRepository resultRepository = new FileResultsRepository("C:\\Users\\RENT\\IdeaProjects\\SDA-java-podstawy\\results.txt");
 
         //tworze interfejs
         QuizInterface quizInterface = new QuizInterface();

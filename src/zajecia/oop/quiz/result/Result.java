@@ -16,6 +16,11 @@ public class Result {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        return playerName + " " + result;
+    }
+
     // GETTERY
 
     public String getPlayerName() {
