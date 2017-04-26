@@ -12,22 +12,22 @@ public class MockResultRepository {
     private Result[] results;
 
     public MockResultRepository() {
-        this.results = new Result[15];
+        this.results = new Result[4];
         this.results[0] = new Result("Andrzej", 3);
         this.results[1] = new Result("Jan", 2);
         this.results[2] = new Result("Hubert", 0);
         this.results[3] = new Result("Ignacy", 0);
-        this.results[4] = new Result("Bartosz", 1);
-        this.results[5] = new Result("Marcin", 3);
-        this.results[6] = new Result("Michał", 3);
-        this.results[7] = new Result("Paweł", 2);
-        this.results[8] = new Result("Łukasz", 0);
-        this.results[9] = new Result("Piotr", 1);
-        this.results[10] = new Result("Jacek", 0);
-        this.results[11] = new Result("Zygmunt", 1);
-        this.results[12] = new Result("Stanisław", 3);
-        this.results[13] = new Result("Antoni", 3);
-        this.results[14] = new Result("Zbigniew", 2);
+//        this.results[4] = new Result("Bartosz", 1);
+//        this.results[5] = new Result("Marcin", 3);
+//        this.results[6] = new Result("Michał", 3);
+//        this.results[7] = new Result("Paweł", 2);
+//        this.results[8] = new Result("Łukasz", 0);
+//        this.results[9] = new Result("Piotr", 1);
+//        this.results[10] = new Result("Jacek", 0);
+//        this.results[11] = new Result("Zygmunt", 1);
+//        this.results[12] = new Result("Stanisław", 3);
+//        this.results[13] = new Result("Antoni", 3);
+//        this.results[14] = new Result("Zbigniew", 2);
     }
 
     public Result[] getAllResult() {
@@ -38,6 +38,7 @@ public class MockResultRepository {
         //zwraca n najlepszych wynikow
 
         //najpierw sortowanie tablicy results, bede przepisywal do drugiej tablicy
+        /*
         Result[] tmpResultArray = new Result[this.results.length];
         for (int i = 0; i < results.length - 1; i++) {
             Result result1 = results[i];
@@ -49,10 +50,20 @@ public class MockResultRepository {
                 tmpResultArray[i] = result2;
             }
         }
-
+        */
         //teraz by trzeba zwrocic pierwszych n-elementow tej tablicy
         //ale poki co zwracam wszystko
-        return tmpResultArray;
+        //return tmpResultArray;
+
+        //zwraca n pierwszych wynikow
+        Result[] resultsToReturn = new Result[n];
+        int loopSize = (n < results.length) ? n : results.length; //jesli podam n wieksze od results.len, to wtedy zeby nie
+        // wyjsc poza zakres tablica results, zwracam wszystkie elementy z results i nic wiecej
+        for (int i = 0; i < loopSize; i++) {
+            resultsToReturn[i] = results[i];
+        }
+        return resultsToReturn; //w tabeli wwynikowej moga byc od pewnego momentu nulle (kiedy n bedzie wieksze od
+        // faktycznejliczby zgromadzonych results (results.lenght), oprogramuję to przywyświetlaniu
     }
 
 }

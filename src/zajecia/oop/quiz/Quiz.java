@@ -57,7 +57,7 @@ public class Quiz {
         } else if (decision == 2) {
             // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
 //            quizInterface.showResults(resultRepository.getAllResult());
-            quizInterface.showResults(resultRepository.getTopResults(10));
+            quizInterface.showTopResults(resultRepository.getTopResults(5));
         } else {
             System.out.println("End of game.");
         }
