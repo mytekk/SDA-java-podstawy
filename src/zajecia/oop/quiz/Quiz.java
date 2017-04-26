@@ -3,6 +3,7 @@ package zajecia.oop.quiz;
 import zajecia.oop.quiz.question.MockQuestionRepository;
 import zajecia.oop.quiz.question.Question;
 import zajecia.oop.quiz.result.MockResultRepository;
+import zajecia.oop.quiz.result.Result;
 
 /**
  * Created by RENT on 2017-04-25.
@@ -56,15 +57,21 @@ public class Quiz {
                         }
                     }
 
+                    //buduje nowy wynik
+                    Result newResult = new Result(playerName, correctAnswerCounter);
+
                     //wyswietlenie wyniku
-                    quizInterface.showResult(playerName, correctAnswerCounter);
+                    quizInterface.showResult(newResult);
+
+                    //zapisanie wyniku do result repository
+                    resultRepository.add(newResult);
 
                     break;
 
                 case 2:
                     // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
                     // quizInterface.showResults(resultRepository.getAllResult());
-                    quizInterface.showTopResults(resultRepository.getTopResults(5));
+                    quizInterface.showTopResults(resultRepository.getTopResults(10));
 
                     break;
 

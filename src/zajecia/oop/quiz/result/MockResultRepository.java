@@ -10,60 +10,44 @@ public class MockResultRepository {
     // ta klasa zawierac bedzie tablice obiektow klasy Result, czyli jakies fake'owe wyniki :)
 
     private Result[] results;
+    private int resultsCounter;
 
     public MockResultRepository() {
-        this.results = new Result[4];
-        this.results[0] = new Result("Andrzej", 3);
-        this.results[1] = new Result("Jan", 2);
-        this.results[2] = new Result("Hubert", 0);
-        this.results[3] = new Result("Ignacy", 0);
-//        this.results[4] = new Result("Bartosz", 1);
-//        this.results[5] = new Result("Marcin", 3);
-//        this.results[6] = new Result("Michał", 3);
-//        this.results[7] = new Result("Paweł", 2);
-//        this.results[8] = new Result("Łukasz", 0);
-//        this.results[9] = new Result("Piotr", 1);
-//        this.results[10] = new Result("Jacek", 0);
-//        this.results[11] = new Result("Zygmunt", 1);
-//        this.results[12] = new Result("Stanisław", 3);
-//        this.results[13] = new Result("Antoni", 3);
-//        this.results[14] = new Result("Zbigniew", 2);
+        this.results = new Result[100]; //duza przestrzen na resulty
+        this.resultsCounter = 0;
+
+        //dodaje jakies elementy za pomoca nowej metody add
+        //przynajmniej nie musze zawracac sobie glowy podbijaniem resultsCounter
+        add(new Result("Andrzej", 3));
+        add(new Result("Jan", 2));
+        add(new Result("Hubert", 0));
+        add(new Result("Ignacy", 0));
     }
 
     public Result[] getAllResult() {
-        return results;
+        Result[] resultsToReturn = new Result[resultsCounter];
+        for (int i = 0; i < this.resultsCounter; i++) {
+            resultsToReturn[i] = this.results[i];
+        }
+        return resultsToReturn;
     }
 
     public Result[] getTopResults(int n) {
-        //zwraca n najlepszych wynikow
-
-        //najpierw sortowanie tablicy results, bede przepisywal do drugiej tablicy
-        /*
-        Result[] tmpResultArray = new Result[this.results.length];
-        for (int i = 0; i < results.length - 1; i++) {
-            Result result1 = results[i];
-            Result result2 = results[i+1];
-            if (result1.getResult() > result2.getResult()) {
-                tmpResultArray[i] = result1;
-            }
-            else {
-                tmpResultArray[i] = result2;
-            }
-        }
-        */
-        //teraz by trzeba zwrocic pierwszych n-elementow tej tablicy
-        //ale poki co zwracam wszystko
-        //return tmpResultArray;
-
         //zwraca n pierwszych wynikow
         Result[] resultsToReturn = new Result[n];
-        int loopSize = (n < results.length) ? n : results.length; //jesli podam n wieksze od results.len, to wtedy zeby nie
+        int loopSize = (n < resultsCounter) ? n : resultsCounter; //jesli podam n wieksze od results.len, to wtedy zeby nie
         // wyjsc poza zakres tablica results, zwracam wszystkie elementy z results i nic wiecej
         for (int i = 0; i < loopSize; i++) {
             resultsToReturn[i] = results[i];
         }
         return resultsToReturn; //w tabeli wwynikowej moga byc od pewnego momentu nulle (kiedy n bedzie wieksze od
         // faktycznejliczby zgromadzonych results (results.lenght), oprogramuję to przywyświetlaniu
+    }
+
+    public void add(Result result) {
+        //dodawanie nowego result do naszego zbioru
+        this.results[resultsCounter] = result; //dodaje nowy element na koncu (najdalszy oebecny element to (resultsCounter - 1)) tablicy this.results
+        resultsCounter++; //dodałem, wiec zwiększam counter
     }
 
 }

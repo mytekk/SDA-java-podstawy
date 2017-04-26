@@ -67,8 +67,8 @@ public class QuizInterface {
         this.scanner.nextLine();
     }
 
-    public void showResult(String name, int result) {
-        System.out.println("Congratulations " + name + "! You finished game with score: " + result + ".");
+    public void showResult(Result result) {
+        System.out.println("Congratulations " + result.getPlayerName() + "! You finished game with score: " + result.getResult() + ".");
     }
 
     //wyswietla tablice wynikow, jako argument przyjmuje tablice elementow klasy Result
