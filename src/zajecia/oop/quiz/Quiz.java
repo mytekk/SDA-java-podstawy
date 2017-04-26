@@ -28,42 +28,54 @@ public class Quiz {
             //wyswietlam menu i prosze usera o wybor pola
             int decision = quizInterface.menu();
 
-            if (decision == 1) {
+            switch (decision) {
 
-                //imie usera
-                String playerName = quizInterface.insertName();
+                case 1:
 
-                // chwila oddechu dla usera
-                quizInterface.beforeStart();
+                    //imie usera
+                    String playerName = quizInterface.insertName();
 
-                //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium wszystkich pytań
-                Question[] questions = questionRepository.getQuestions();
+                    // chwila oddechu dla usera
+                    quizInterface.beforeStart();
 
-                // licznik poprawnych odpowiedzi usera
-                int correctAnswerCounter = 0;
+                    //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium wszystkich pytań
+                    Question[] questions = questionRepository.getQuestions();
 
-                //wyswietlam po kolei wszystkie pytania
-                for (int i = 0; i < questions.length; i++) {
-                    boolean result = quizInterface.showQuestion(questions[i]); //ta metoda zwraca tez odp usera!
-                    //po wyswietleniu odpowiedzi sprawdzam wybor usera
-                    if (result) {
-                        quizInterface.correctAnswer();
-                        correctAnswerCounter++;
-                    } else {
-                        quizInterface.incorrectAnswer();
+                    // licznik poprawnych odpowiedzi usera
+                    int correctAnswerCounter = 0;
+
+                    //wyswietlam po kolei wszystkie pytania
+                    for (int i = 0; i < questions.length; i++) {
+                        boolean result = quizInterface.showQuestion(questions[i]); //ta metoda zwraca tez odp usera!
+                        //po wyswietleniu odpowiedzi sprawdzam wybor usera
+                        if (result) {
+                            quizInterface.correctAnswer();
+                            correctAnswerCounter++;
+                        } else {
+                            quizInterface.incorrectAnswer();
+                        }
                     }
+
+                    //wyswietlenie wyniku
+                    quizInterface.showResult(playerName, correctAnswerCounter);
+
+                    break;
+
+                case 2:
+                    // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
+                    // quizInterface.showResults(resultRepository.getAllResult());
+                    quizInterface.showTopResults(resultRepository.getTopResults(5));
+
+                    break;
+
+                case 0:
+                    gameFlag = false;
+                    break;
+
+                default:
+                    System.out.println("Wrong decision!");
                 }
 
-                //wyswietlenie wyniku
-                quizInterface.showResult(playerName, correctAnswerCounter);
-
-            } else if (decision == 2) {
-                // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
-//            quizInterface.showResults(resultRepository.getAllResult());
-                quizInterface.showTopResults(resultRepository.getTopResults(5));
-            } else {
-                gameFlag = false;
-            }
         }//while
 
         //koniec gry
