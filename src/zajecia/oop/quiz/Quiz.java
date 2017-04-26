@@ -9,6 +9,8 @@ import zajecia.oop.quiz.result.MockResultRepository;
  */
 public class Quiz {
 
+    // glowna klasa aplikacji
+
     public static void main(String[] args) {
 
         // tworze obiekt klasy mock - czyli tworze naszego dostawce pytań:)
@@ -31,9 +33,10 @@ public class Quiz {
             // chwila oddechu dla usera
             quizInterface.beforeStart();
 
-            //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium
+            //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium wszystkich pytań
             Question[] questions = questionRepository.getQuestions();
 
+            // licznik poprawnych odpowiedzi usera
             int correctAnswerCounter = 0;
 
             //wyswietlam po kolei wszystkie pytania
@@ -52,7 +55,9 @@ public class Quiz {
             quizInterface.showResult(playerName, correctAnswerCounter);
 
         } else if (decision == 2) {
-            quizInterface.showResults(resultRepository.getAllResult());
+            // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
+//            quizInterface.showResults(resultRepository.getAllResult());
+            quizInterface.showResults(resultRepository.getTopResults(10));
         } else {
             System.out.println("End of game.");
         }

@@ -5,7 +5,8 @@ package zajecia.oop.quiz.question;
  */
 public class MockQuestionRepository {
 
-    // repozytorium pytań do quizu
+    // repozytorium pytań do quizu - zawiera tablicę obiektów klasy Question
+
     public Question[] getQuestions() {
         Question[] questions = new Question[3];
 

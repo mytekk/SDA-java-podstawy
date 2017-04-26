@@ -6,6 +6,7 @@ package zajecia.oop.quiz.result;
 public class Result {
 
     // ta klasa zawierać bedzie pojedynczy wynik: czyli imie usera i wynik punktowy
+    // brak settereow, bo mge tylko odczytac wynik, a nie zmieniac go
 
     private String playerName;
     private int result;

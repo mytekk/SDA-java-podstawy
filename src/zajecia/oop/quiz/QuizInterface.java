@@ -10,6 +10,8 @@ import java.util.Scanner;
  */
 public class QuizInterface {
 
+    // jest to klasa, ktora zawiera poszczegolne klocki budujace interfejs dla uzytkownika
+
     private Scanner scanner;
 
     public QuizInterface() {

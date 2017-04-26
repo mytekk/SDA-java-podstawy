@@ -7,6 +7,8 @@ import java.util.Arrays;
  */
 public class Question {
 
+    // klasa oisująca pojedyncze pytanie
+
     private String question;
     private int correctAnswer;
     private String[] answers;
