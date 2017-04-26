@@ -22,47 +22,54 @@ public class Quiz {
         //tworze interfejs
         QuizInterface quizInterface = new QuizInterface();
 
-        //wyswietlam menu i prosze usera o wybor pola
-        int decision = quizInterface.menu();
+        boolean gameFlag = true;
+        while (gameFlag) {
 
-        if (decision == 1) {
+            //wyswietlam menu i prosze usera o wybor pola
+            int decision = quizInterface.menu();
 
-            //imie usera
-            String playerName = quizInterface.insertName();
+            if (decision == 1) {
 
-            // chwila oddechu dla usera
-            quizInterface.beforeStart();
+                //imie usera
+                String playerName = quizInterface.insertName();
 
-            //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium wszystkich pytań
-            Question[] questions = questionRepository.getQuestions();
+                // chwila oddechu dla usera
+                quizInterface.beforeStart();
 
-            // licznik poprawnych odpowiedzi usera
-            int correctAnswerCounter = 0;
+                //do zmiennej questions (będacej tablicą obiektów klasy Question) ładuję wszystkie pytania z repozytorium wszystkich pytań
+                Question[] questions = questionRepository.getQuestions();
 
-            //wyswietlam po kolei wszystkie pytania
-            for (int i = 0; i < questions.length; i++) {
-                boolean result = quizInterface.showQuestion(questions[i]); //ta metoda zwraca tez odp usera!
-                //po wyswietleniu odpowiedzi sprawdzam wybor usera
-                if (result) {
-                    quizInterface.correctAnswer();
-                    correctAnswerCounter++;
-                } else {
-                    quizInterface.incorrectAnswer();
+                // licznik poprawnych odpowiedzi usera
+                int correctAnswerCounter = 0;
+
+                //wyswietlam po kolei wszystkie pytania
+                for (int i = 0; i < questions.length; i++) {
+                    boolean result = quizInterface.showQuestion(questions[i]); //ta metoda zwraca tez odp usera!
+                    //po wyswietleniu odpowiedzi sprawdzam wybor usera
+                    if (result) {
+                        quizInterface.correctAnswer();
+                        correctAnswerCounter++;
+                    } else {
+                        quizInterface.incorrectAnswer();
+                    }
                 }
-            }
 
-            //wyswietlenie wyniku
-            quizInterface.showResult(playerName, correctAnswerCounter);
+                //wyswietlenie wyniku
+                quizInterface.showResult(playerName, correctAnswerCounter);
 
-        } else if (decision == 2) {
-            // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
+            } else if (decision == 2) {
+                // od dostawcy fake'owych wynikow pobieram te wyniki i wyswietlam je
 //            quizInterface.showResults(resultRepository.getAllResult());
-            quizInterface.showTopResults(resultRepository.getTopResults(5));
-        } else {
-            System.out.println("End of game.");
-        }
+                quizInterface.showTopResults(resultRepository.getTopResults(5));
+            } else {
+                gameFlag = false;
+            }
+        }//while
+
+        //koniec gry
+        quizInterface.afterGameEnded();
 
 
-    }
+    }//main
 
 }
