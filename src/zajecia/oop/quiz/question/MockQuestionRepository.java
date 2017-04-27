@@ -3,7 +3,7 @@ package zajecia.oop.quiz.question;
 /**
  * Created by RENT on 2017-04-25.
  */
-public class MockQuestionRepository {
+public class MockQuestionRepository implements QuestionsRepository {
 
     // repozytorium pytań do quizu - zawiera tablicę obiektów klasy Question
 

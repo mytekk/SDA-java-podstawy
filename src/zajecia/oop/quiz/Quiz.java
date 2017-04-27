@@ -1,10 +1,13 @@
 package zajecia.oop.quiz;
 
+import zajecia.oop.quiz.question.FileQuestionsRepository;
 import zajecia.oop.quiz.question.MockQuestionRepository;
 import zajecia.oop.quiz.question.Question;
+import zajecia.oop.quiz.question.QuestionsRepository;
 import zajecia.oop.quiz.result.FileResultsRepository;
 import zajecia.oop.quiz.result.MockResultRepository;
 import zajecia.oop.quiz.result.Result;
+import zajecia.oop.quiz.result.ResultsRepository;
 
 /**
  * Created by RENT on 2017-04-25.
@@ -15,11 +18,11 @@ public class Quiz {
 
     public static void main(String[] args) {
 
-        // tworze obiekt klasy mock - czyli tworze naszego dostawce pytań:)
-        MockQuestionRepository questionRepository = new MockQuestionRepository();
+        // tworze obiekt klasy FileQuestionsRepository (implementujacy odpowiedniinterfejs) - czyli tworze naszego dostawce pytań:)
+        QuestionsRepository questionRepository = new FileQuestionsRepository("C:\\Users\\RENT\\IdeaProjects\\SDA-java-podstawy\\quiz.txt");
 
-        // tworze obiekt klasy file results - czyli tworze naszego dostawce fakeowych wynikow z pliku
-        FileResultsRepository resultRepository = new FileResultsRepository("C:\\Users\\RENT\\IdeaProjects\\SDA-java-podstawy\\results.txt");
+        // tworze obiekt implementujacy interfejs - a konkretnie tworze naszego dostawce fakeowych wynikow z pliku, czyli obiekt klasy FileResultsRepository
+        ResultsRepository resultRepository = new FileResultsRepository("C:\\Users\\RENT\\IdeaProjects\\SDA-java-podstawy\\results.txt");
 
         //tworze interfejs
         QuizInterface quizInterface = new QuizInterface();

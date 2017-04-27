@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Created by RENT on 2017-04-25.
  */
-public class MockResultRepository {
+public class MockResultRepository implements ResultsRepository {
 
     // ta klasa zawierac bedzie tablice obiektow klasy Result, czyli jakies fake'owe wyniki :)
 
@@ -24,7 +24,7 @@ public class MockResultRepository {
         add(new Result("Ignacy", 0));
     }
 
-    public Result[] getAllResult() {
+    public Result[] getAllResults() {
         Result[] resultsToReturn = new Result[resultsCounter];
         for (int i = 0; i < this.resultsCounter; i++) {
             resultsToReturn[i] = this.results[i];
