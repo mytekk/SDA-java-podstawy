@@ -14,7 +14,7 @@ import zajecia.oop.quiz.result.ResultsRepository;
  */
 public class Quiz {
 
-    // glowna klasa aplikacji
+    // glowna klasa aplikacji Quiz
 
     public static void main(String[] args) {
 
